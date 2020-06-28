@@ -82,4 +82,12 @@ void Game::Render() {
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderFillRect(renderer, &projectile);
+
+    SDL_RenderPresent(renderer);
+}
+
+void Game::Destroy() {
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit;
 }
