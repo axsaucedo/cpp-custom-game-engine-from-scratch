@@ -1,15 +1,20 @@
+%compile_commands.json
+-fdeclspec
+-fms-extensions
+-Wall
+-Wextra
 
 %h -x
 %h c++-header
 
 %clang
+-I./src/
+-I./lib/lua
+-L./lib/lua
 -llua5.3
 -lSDL2
 -lSDL2_image
 -lSDL2_ttf
 -lSDL2_mixer
--I./src/
--I./lib/lua
--L./lib/lua
 
 
