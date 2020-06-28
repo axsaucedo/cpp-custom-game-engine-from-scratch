@@ -1,0 +1,16 @@
+%compile_commands.json
+-llua5.3
+-lSDL2
+-lSDL2_image
+-lSDL2_ttf
+-lSDL2_mixer
+
+%h -x
+%h c++-header
+
+%clang
+-I./src/
+-I./lib/lua
+-L./lib/lua
+
+
