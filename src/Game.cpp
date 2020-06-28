@@ -16,8 +16,8 @@ bool Game::IsRunning() const {
 
 float projectilePosX = 0.0f;
 float projectilePosY = 0.0f;
-float projectileVelX = 50.0f;
-float projectileVelY = 50.0f;
+float projectileVelX = 0.5f;
+float projectileVelY = 0.5f;
 
 void Game::Initialize(int width, int height) {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -26,8 +26,8 @@ void Game::Initialize(int width, int height) {
     }
 
     window = SDL_CreateWindow(NULL, 
-        SDL_WINDOWPOS_CENTERED, 
-        SDL_WINDOWPOS_CENTERED, 
+        0, 
+        0, 
         width, 
         height, 
         SDL_WINDOW_BORDERLESS);
@@ -89,5 +89,6 @@ void Game::Render() {
 void Game::Destroy() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
-    SDL_Quit;
+    SDL_Quit();
 }
+
