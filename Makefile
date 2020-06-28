@@ -5,19 +5,19 @@ install-linux-deps:
 		libsdl2-image-dev \
 		libsdl2-ttf-dev \
 		libsdl2-mixer-dev \
-		lua5.3
+		lua5.3-dev
 
 build:
-	g++ -w -std=c++14 -Wfatal-errors \
-	./src/*.cpp \
-	-o game \
-	-I"./lib/lua" \
-	-L"./lib/lua" \
-	-llua \
-	-lSDL2 \
-	-lSDL2_image \
-	-lSDL2_ttf \
-	-lSDL2_mixer;
+	g++ -w -std=c++14 \
+		./src/*.cpp \
+		-o game \
+		-I"./lib/lua" \
+		-L"./lib/lua" \
+		-llua5.3 \
+		-lSDL2 \
+		-lSDL2_image \
+		-lSDL2_ttf \
+		-lSDL2_mixer
 
 clean:
 	rm ./game;
