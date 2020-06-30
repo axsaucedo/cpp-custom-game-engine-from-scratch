@@ -15,12 +15,12 @@ private:
     std::vector<Component*> components;
 
 public:
-    Entity(EntityManager &manager);
-    Entity(EntityyManager &manager, std::string name);
+    Entity(EntityManager& manager);
+    Entity(EntityManager& manager, std::string name);
     void Update(float deltaTime);
     void Render();
     void Destroy();
-    void IsActive() const;
+    bool IsActive() const;
 };
 
 #endif /* ENTITY_H */
