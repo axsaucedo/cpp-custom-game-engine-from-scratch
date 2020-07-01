@@ -15,6 +15,7 @@ public:
     void Update();
     void Render();
     void Destroy();
+    void LoadLevel(int levelNumber);
 
     static SDL_Renderer *renderer;
 

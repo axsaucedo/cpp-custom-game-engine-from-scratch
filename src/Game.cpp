@@ -2,6 +2,7 @@
 #include "./Constants.h"
 #include "./Game.h"
 #include "../lib/glm/glm.hpp"
+#include "EntityManager.h"
 
 Game::Game() {
     this->isRunning = false;
@@ -15,8 +16,8 @@ bool Game::IsRunning() const {
     return this->isRunning;
 }
 
-glm::vec2 projectilePos = glm::vec2(0.0f, 0.0f);
-glm::vec2 projectileVel = glm::vec2(20.0f, 20.0f);
+EntityManager manager;
+SDL_Renderer* Game::renderer;
 
 void Game::Initialize(int width, int height) {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -36,8 +37,8 @@ void Game::Initialize(int width, int height) {
         return;
     }
 
-    renderer = SDL_CreateRenderer(window, -1, 0);
-    if (!renderer) {
+    Game::renderer = SDL_CreateRenderer(window, -1, 0);
+    if (!Game::renderer) {
         std::cerr << "Error creating SDL renderer." << std::endl;
         return;
     }
@@ -78,32 +79,20 @@ void Game::Update() {
 
     // Sets the new ticks for the current frame to be used in the next pass
     ticksLastFrame = SDL_GetTicks();
-
-    // Use deltaTime to update my game objects
-    projectilePos = glm::vec2(
-            projectilePos.x + projectileVel.x * deltaTime,
-            projectilePos.y + projectileVel.y * deltaTime);
 }
 
 void Game::Render() {
-    SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
-    SDL_RenderClear(renderer);
+    SDL_SetRenderDrawColor(Game::renderer, 21, 21, 21, 255);
+    SDL_RenderClear(Game::renderer);
+    
+    // TODO:
+    // Here we call the manager render to render all entities
 
-    SDL_Rect projectile {
-        (int) projectilePos.x,
-        (int) projectilePos.y,
-        10,
-        10
-    };
-
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(renderer, &projectile);
-
-    SDL_RenderPresent(renderer);
+    SDL_RenderPresent(Game::renderer);
 }
 
 void Game::Destroy() {
-    SDL_DestroyRenderer(renderer);
+    SDL_DestroyRenderer(Game::renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
 }

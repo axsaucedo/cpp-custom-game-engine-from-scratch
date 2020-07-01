@@ -23,7 +23,8 @@ public:
     }
 
     void Update(float deltaTime) override {
-
+        position.x += velocity.x * deltaTime;
+        position.y += velocity.y * deltaTime;
     }
 
     void Render() override {
@@ -36,6 +37,7 @@ public:
         SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
         SDL_RenderFillRect(Game::renderer, &transformRectangle);
     }
+
     virtual ~TransformComponent();
     glm::vec2 position;
     glm::vec2 velocity;

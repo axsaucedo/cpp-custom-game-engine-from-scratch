@@ -33,7 +33,7 @@ std::vector<Entity*> EntityManager::GetEntities() const {
 }
 
 unsigned int EntityManager::GetEntityCount() {
-    return entities.size()
+    return entities.size();
 }
 
 
