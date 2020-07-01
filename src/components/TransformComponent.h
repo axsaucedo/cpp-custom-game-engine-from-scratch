@@ -38,7 +38,6 @@ public:
         SDL_RenderFillRect(Game::renderer, &transformRectangle);
     }
 
-    virtual ~TransformComponent();
     glm::vec2 position;
     glm::vec2 velocity;
     int width;
