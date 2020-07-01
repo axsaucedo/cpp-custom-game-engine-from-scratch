@@ -1,4 +1,6 @@
-%compile_commands.json
+
+%clang
+
 -fdeclspec
 -fms-extensions
 -Wall
@@ -7,7 +9,7 @@
 %h -x
 %h c++-header
 
-%clang
+-I./src/components/
 -I./src/
 -I./lib/lua
 -L./lib/lua
