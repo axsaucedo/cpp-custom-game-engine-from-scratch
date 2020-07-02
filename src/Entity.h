@@ -25,6 +25,9 @@ public:
     void Render();
     void Destroy();
     bool IsActive() const;
+    void ListAllComponents() const;
+    std::string GetName() { return this->name; }
+    std::vector<Component*>& GetComponents() { return components; }
 
     template <typename T, typename... TArgs>
     T& AddComponent(TArgs&&... args) {
