@@ -5,6 +5,8 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
+class AssetManager;
+
 class Game {
 public:
     Game();
@@ -18,6 +20,7 @@ public:
     void LoadLevel(int levelNumber);
 
     static SDL_Renderer *renderer;
+    static AssetManager* assetManager;
 
 private:
     bool isRunning;
