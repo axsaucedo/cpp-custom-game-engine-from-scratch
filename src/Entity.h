@@ -43,8 +43,14 @@ public:
 
     template <typename T>
     T* GetComponent() {
-        return static_cast<T*>(componentTypeMap[&typeid(T)]);
+        return static_cast<T*>(this->componentTypeMap[&typeid(T)]);
     }
+
+    template <typename T>
+    T* HasComponent() {
+        return this->componentTypeMap.count(&typeid(T)) > 0;
+    }
+
 };
 
 #endif /* ENTITY_H */
