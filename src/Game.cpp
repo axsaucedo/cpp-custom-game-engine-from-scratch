@@ -66,7 +66,7 @@ void Game::LoadLevel(int levelNumber) {
 
     Entity& chopperEntity(manager.AddEntity("chopper"));
     chopperEntity.AddComponent<TransformComponent>(240, 106, 0, 0, 32, 32, 1);
-    chopperEntity.AddComponent<SpriteComponent>("chopper-image");
+    chopperEntity.AddComponent<SpriteComponent>("chopper-image", 2, 90, true, false);
 }
 
 void Game::ProcessInput() {
