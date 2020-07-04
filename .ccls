@@ -5,6 +5,7 @@
 -fms-extensions
 -Wall
 -Wextra
+-std=c++14
 
 %h -x
 %h c++-header
