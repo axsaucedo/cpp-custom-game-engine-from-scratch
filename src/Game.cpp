@@ -5,12 +5,14 @@
 #include "./AssetManager.h"
 #include "./components/TransformComponent.h"
 #include "./components/SpriteComponent.h"
+#include "./components/KeyboardControlComponent.h"
 
 #include "../lib/glm/glm.hpp"
 
 EntityManager manager;
 AssetManager* Game::assetManager = new AssetManager(&manager);
 SDL_Renderer* Game::renderer;
+SDL_Event Game::event;
 
 Game::Game() {
     this->isRunning = false;
@@ -60,14 +62,15 @@ void Game::LoadLevel(int levelNumber) {
     assetManager->AddTexture("chopper-image", std::string("./assets/images/chopper-spritesheet.png").c_str());
     assetManager->AddTexture("radar-image", std::string("./assets/images/radar.png").c_str());
 
+    Entity& chopperEntity(manager.AddEntity("chopper"));
+    chopperEntity.AddComponent<TransformComponent>(240, 106, 0, 0, 32, 32, 1);
+    chopperEntity.AddComponent<SpriteComponent>("chopper-image", 2, 90, true, false);
+    chopperEntity.AddComponent<KeyboardControlComponent>("up", "right", "down", "left", "space");
+
     //Include entitites
     Entity& tankEntity(manager.AddEntity("projectile"));
     tankEntity.AddComponent<TransformComponent>(0, 0, 20, 20, 32, 32, 1);
     tankEntity.AddComponent<SpriteComponent>("tank-image");
-
-    Entity& chopperEntity(manager.AddEntity("chopper"));
-    chopperEntity.AddComponent<TransformComponent>(240, 106, 0, 0, 32, 32, 1);
-    chopperEntity.AddComponent<SpriteComponent>("chopper-image", 2, 90, true, false);
 
     Entity& radarEntity(manager.AddEntity("radar"));
     radarEntity.AddComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
@@ -75,15 +78,14 @@ void Game::LoadLevel(int levelNumber) {
 }
 
 void Game::ProcessInput() {
-    SDL_Event event;
-    SDL_PollEvent(&event);
+    SDL_PollEvent(&Game::event);
 
-    switch(event.type) {
+    switch(Game::event.type) {
         case SDL_QUIT:
             isRunning = false;
             break;
         case SDL_KEYDOWN:
-            if (event.key.keysym.sym == SDLK_ESCAPE) {
+            if (Game::event.key.keysym.sym == SDLK_ESCAPE) {
                 isRunning = false;
             }
         default:
