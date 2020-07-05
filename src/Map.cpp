@@ -1,5 +1,4 @@
 #include <fstream>
-#include <iostream>
 
 #include "./Game.h"
 #include "./Map.h"
@@ -29,10 +28,8 @@ void Map::LoadMap(std::string filePath, int mapSizeX, int mapSizeY) {
         for (int x = 0; x < mapSizeX; x++) {
             char ch;
             mapFile.get(ch);
-            std::cout << "Char: " << ch << " ";
             int sourceRectY = atoi(&ch) * tileSize;
             mapFile.get(ch);
-            std::cout << ch << std::endl;
             int sourceRectX = atoi(&ch) * tileSize;
             this->AddTile(sourceRectX, sourceRectY, x * (scale * tileSize), y * (scale * tileSize));
             mapFile.ignore();
