@@ -158,7 +158,7 @@ void Game::HandleCameraMovement() {
 
 void Game::CheckCollisions() {
     std::string collisionTagType = manager.CheckEntityCollisions(player);
-    if (collisionTagType.compare("enemy")) {
+    if (collisionTagType.compare("enemy") == 0) {
         isRunning = false;
     }
 }

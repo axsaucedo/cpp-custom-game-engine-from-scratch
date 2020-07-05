@@ -1,7 +1,6 @@
 #include "./Collision.h"
 
-bool Collision::CheckRectangleCollision(const SDL_Rect& rectangleA, const SDL_Rect& rectangleB)
-{
+bool Collision::CheckRectangleCollision(const SDL_Rect& rectangleA, const SDL_Rect& rectangleB) {
     return (
         rectangleA.x + rectangleA.w >= rectangleB.x &&
         rectangleB.x + rectangleB.w >= rectangleA.x &&
