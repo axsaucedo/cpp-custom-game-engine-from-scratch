@@ -18,10 +18,12 @@ public:
     void Render();
     void Destroy();
     void LoadLevel(int levelNumber);
+    void HandleCameraMovement();
 
     static SDL_Renderer *renderer;
     static AssetManager* assetManager;
     static SDL_Event event;
+    static SDL_Rect camera;
 
 private:
     bool isRunning;

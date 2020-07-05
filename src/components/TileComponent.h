@@ -39,6 +39,8 @@ public:
     }
 
     void Update(float deltaTime) override {
+        this->destinationRectangle.x = position.x - Game::camera.x;
+        this->destinationRectangle.y = position.y - Game::camera.y;
 
     }
 

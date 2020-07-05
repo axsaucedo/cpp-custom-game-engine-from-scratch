@@ -89,8 +89,9 @@ public:
             this->sourceRectangle.x = this->sourceRectangle.w * static_cast<int>((SDL_GetTicks() / this->animationSpeed) % this->numFrames);
         }
         this->sourceRectangle.y = this->animationIndex * this->transform->height;
-        this->destinationRectangle.x = static_cast<int>(this->transform->position.x);
-        this->destinationRectangle.y = static_cast<int>(this->transform->position.y);
+
+        this->destinationRectangle.x = static_cast<int>(this->transform->position.x) - Game::camera.x;
+        this->destinationRectangle.y = static_cast<int>(this->transform->position.y) - Game::camera.y;
         this->destinationRectangle.w = this->transform->width * this->transform->scale;
         this->destinationRectangle.h = this->transform->height * this->transform->scale;
     }
