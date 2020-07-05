@@ -34,7 +34,7 @@ public:
 
     std::string GetSDLKeyStringCode(std::string key) {
         if (key.compare("up") == 0) return "1073741906";
-        if (key.compare("down") == 0) return "107371905";
+        if (key.compare("down") == 0) return "1073741905";
         if (key.compare("left") == 0) return "1073741904";
         if (key.compare("right") == 0) return "1073741903";
         if (key.compare("space") == 0) return "32";
