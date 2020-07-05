@@ -67,7 +67,7 @@ void Game::LoadLevel(int levelNumber) {
     assetManager->AddTexture("radar-image", std::string("./assets/images/radar.png").c_str());
     assetManager->AddTexture("jungle-tiletexture", std::string("./assets/tilemaps/jungle.png").c_str());
 
-    map = new Map("jungle-tiletexture", 1, 32);
+    map = new Map("jungle-tiletexture", 2, 32);
     map->LoadMap("./assets/tilemaps/jungle.map", 25, 20);
 
     player.AddComponent<TransformComponent>(240, 106, 0, 0, 32, 32, 1);
@@ -144,5 +144,10 @@ void Game::HandleCameraMovement() {
     TransformComponent* mainPlayerTransform = player.GetComponent<TransformComponent>();
     camera.x = mainPlayerTransform->position.x - (WINDOW_WIDTH / 2);
     camera.y = mainPlayerTransform->position.y - (WINDOW_HEIGHT / 2);
+
+    camera.x = camera.x < 0 ? 0 : camera.x;
+    camera.y = camera.y < 0 ? 0 : camera.y;
+    camera.x = camera.x > camera.w ? camera.w : camera.x;
+    camera.y = camera.y > camera.h ? camera.h : camera.y;
 }
 
