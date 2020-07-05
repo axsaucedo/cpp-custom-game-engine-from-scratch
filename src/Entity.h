@@ -5,8 +5,9 @@
 #include <string>
 #include <map>
 
-#include "EntityManager.h"
-#include "Component.h"
+#include "./EntityManager.h"
+#include "./Component.h"
+#include "./Constants.h"
 
 class EntityManager;
 class Component;
@@ -22,7 +23,8 @@ private:
 
 public:
     Entity(EntityManager& manager);
-    Entity(EntityManager& manager, std::string name);
+    Entity(EntityManager& manager, std::string name, LayerType layer);
+
     void Update(float deltaTime);
     void Render();
     void Destroy();
@@ -30,6 +32,8 @@ public:
     void ListAllComponents() const;
     std::string GetName() { return this->name; }
     std::vector<Component*>& GetComponents() { return components; }
+
+    LayerType layer;
 
     template <typename T, typename... TArgs>
     T& AddComponent(TArgs&&... args) {

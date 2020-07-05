@@ -4,9 +4,10 @@ Entity::Entity(EntityManager& manager): manager(manager) {
     this->isActive = true;
 }
 
-Entity::Entity(EntityManager& refManager, std::string refName): 
+Entity::Entity(EntityManager& refManager, std::string refName, LayerType refLayer): 
         manager(refManager),
-        name(refName) {
+        name(refName),
+        layer(refLayer){
 
     this->isActive = true;
 }
