@@ -74,6 +74,6 @@ std::string EntityManager::CheckEntityCollisions(Entity& myEntity) const {
             }
         }           
     }
-    return "";
+    return std::string();
 }
 
