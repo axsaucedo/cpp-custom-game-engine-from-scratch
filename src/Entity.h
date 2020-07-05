@@ -51,7 +51,7 @@ public:
     }
 
     template <typename T>
-    T* HasComponent() {
+    bool HasComponent() const {
         return this->componentTypeMap.count(&typeid(T)) > 0;
     }
 

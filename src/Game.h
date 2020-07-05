@@ -19,6 +19,7 @@ public:
     void Destroy();
     void LoadLevel(int levelNumber);
     void HandleCameraMovement();
+    void CheckCollisions();
 
     static SDL_Renderer *renderer;
     static AssetManager* assetManager;
