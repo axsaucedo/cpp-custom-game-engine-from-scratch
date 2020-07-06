@@ -20,6 +20,8 @@ public:
     void LoadLevel(int levelNumber);
     void HandleCameraMovement();
     void CheckCollisions();
+    void ProcessNextLevel(int levelNumber);
+    void ProcessGameOver();
 
     static SDL_Renderer *renderer;
     static AssetManager* assetManager;
