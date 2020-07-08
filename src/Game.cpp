@@ -184,6 +184,8 @@ void Game::CheckCollisions() {
     CollisionType collisionTagType = manager.CheckCollisions();
     if (collisionTagType == PLAYER_ENEMY_COLLISION) {
         this->ProcessGameOver();
+    } else if (collisionTagType == PLAYER_PROJECTILE_COLLISION) {
+        this->ProcessGameOver();
     } else if (collisionTagType == PLAYER_LEVEL_COMPLETE_COLLISION) {
         this->ProcessNextLevel(1);
     }
