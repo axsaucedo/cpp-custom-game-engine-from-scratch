@@ -31,6 +31,10 @@ public:
 
     }
 
+    std::string ToString() override {
+        return "TransformComponent";
+    }
+
     glm::vec2 position;
     glm::vec2 velocity;
     int width;

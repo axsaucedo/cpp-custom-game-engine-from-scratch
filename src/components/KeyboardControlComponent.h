@@ -94,6 +94,10 @@ public:
             }
         }
     }
+
+    std::string ToString() override {
+        return "KeyboardControlComponent";
+    }
 };
 
 #endif /* KEYBOARDCONTROLCOMPONENT_H */

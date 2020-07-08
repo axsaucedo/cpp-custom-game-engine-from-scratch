@@ -4,9 +4,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-#include "../EntityManager.cpp"
-#include "../Game.cpp"
-#include "../AssetManager.cpp"
+#include "../EntityManager.h"
+#include "../Game.h"
+#include "../AssetManager.h"
 
 class LabelComponent: public Component {
 private:
@@ -17,8 +17,6 @@ private:
     SDL_Texture* texture;
 
 public:
-    LabelComponent();
-
     LabelComponent(int x, int y, std::string text, std::string fontFamily, const SDL_Color color) {
         this->position.x = x;
         this->position.y = y;
@@ -37,6 +35,10 @@ public:
 
     void Render() override {
         FontManager::Draw(texture, position);
+    }
+
+    std::string ToString() override {
+        return "LabelComponent";
     }
 };
 

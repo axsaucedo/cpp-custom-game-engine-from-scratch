@@ -40,6 +40,10 @@ public:
         this->destinationRectangle.y = this->collider.y - Game::camera.y;
 
     }
+
+    std::string ToString() override {
+        return "ColliderComponent - Tag: " + this->colliderTag;
+    }
 };
 
 #endif /* COLLIDERCOMPONENT_H */

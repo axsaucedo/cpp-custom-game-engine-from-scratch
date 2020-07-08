@@ -25,6 +25,7 @@ private:
     std::map<std::string, Animation> animations;
     std::string currentAnimationName;
     unsigned int animationIndex = 0;
+    std::string assetTextureId;
 
 public:
     SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
@@ -32,6 +33,7 @@ public:
     SpriteComponent(const char* assetTextureId) {
         isAnimated = false;
         isFixed = false;
+        this->assetTextureId = std::string(assetTextureId);
         this->texture = Game::assetManager->GetTexture(assetTextureId);
     }
 
@@ -103,6 +105,10 @@ public:
                 this->sourceRectangle,
                 this->destinationRectangle,
                 this->spriteFlip);
+    }
+
+    std::string ToString() override {
+        return "SpriteComponent: " + this->assetTextureId;
     }
 };
 

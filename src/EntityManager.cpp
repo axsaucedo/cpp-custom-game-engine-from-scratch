@@ -5,7 +5,7 @@
 #include "./components/ColliderComponent.h"
 
 void EntityManager::ClearData() {
-    for (auto& entity: entities) {
+    for (Entity* entity: entities) {
         entity->Destroy();
     }
 }
@@ -18,6 +18,15 @@ void EntityManager::Update(float deltaTime) {
     for (auto& entity: entities) {
         entity->Update(deltaTime);
     }
+    this->DestroyInactiveEntities();
+}
+
+void EntityManager::DestroyInactiveEntities() {
+    for (int i = 0; i < this->entities.size(); i++) {
+        if (!this->entities[i]->IsActive()) {
+            this->entities.erase(this->entities.begin() + i);
+        }
+    }        
 }
 
 void EntityManager::Render() {

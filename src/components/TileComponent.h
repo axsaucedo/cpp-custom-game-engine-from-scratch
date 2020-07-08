@@ -48,6 +48,9 @@ public:
         TextureManager::Draw(texture, sourceRectangle, destinationRectangle, SDL_FLIP_NONE);
     }
 
+    std::string ToString() override {
+        return "TileComponent";
+    }
 };
 
 #endif /* TILECOMPONENT_H */

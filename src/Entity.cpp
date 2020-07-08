@@ -1,3 +1,6 @@
+
+#include <iostream>
+
 #include "./Entity.h"
 
 Entity::Entity(EntityManager& manager): manager(manager) {
@@ -19,7 +22,7 @@ void Entity::Update(float deltaTime) {
 }
 
 void Entity::Render() {
-    for (auto& component: components) {
+    for (Component* component: components) {
         component->Render();
     }
 }
