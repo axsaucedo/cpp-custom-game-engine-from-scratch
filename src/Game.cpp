@@ -91,6 +91,11 @@ void Game::LoadLevel(int levelNumber) {
                 std::string assetId = asset["id"];
                 std::string assetFile = asset["file"];
                 assetManager->AddTexture(assetId, assetFile.c_str());
+            } else if (assetType.compare("font") == 0) {
+                std::string assetId = asset["id"];
+                std::string assetFile = asset["file"];
+                int fontSize = asset["fontSize"];
+                assetManager->AddFont(assetId, assetFile.c_str(), fontSize);
             }
         }
         assetIndex++;
