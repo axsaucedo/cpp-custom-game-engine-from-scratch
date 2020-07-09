@@ -108,6 +108,125 @@ void Game::LoadLevel(int levelNumber) {
 
     map = new Map(mapTextureId, static_cast<int>(levelMap["scale"]), static_cast<int>(levelMap["tileSize"]));
     map->LoadMap(mapFile, static_cast<int>(levelMap["mapSizeX"]), static_cast<int>(levelMap["mapSizeY"]));
+
+    // Load entities
+    sol::table levelEntities = levelData["entities"];
+    unsigned int entityIndex = 0;
+    while (true) {
+        sol::optional<sol::table> existsEntityIndexMode = levelEntities[entityIndex];
+        if (existsEntityIndexMode == sol::nullopt) {
+            break;
+        } else {
+            sol::table entity = levelEntities[entityIndex];
+            std::string entityName = entity["name"];
+            LayerType entityLayerType = static_cast<LayerType>(static_cast<int>(entity["layer"]));
+            Entity& newEntity(manager.AddEntity(entityName, entityLayerType));
+
+            sol::optional<sol::table> existsTransformComponent = entity["components"]["transform"];
+            if (existsTransformComponent != sol::nullopt) {
+                sol::table transformComponent = entity["components"]["transform"];
+                newEntity.AddComponent<TransformComponent>(
+                    static_cast<int>(transformComponent["position"]["x"]),
+                    static_cast<int>(transformComponent["position"]["y"]),
+                    static_cast<int>(transformComponent["velocity"]["x"]),
+                    static_cast<int>(transformComponent["velocity"]["y"]),
+                    static_cast<int>(transformComponent["width"]),
+                    static_cast<int>(transformComponent["height"]),
+                    static_cast<int>(transformComponent["scale"])
+                );
+            }
+
+            sol::optional<sol::table> existsSpriteComponent = entity["components"]["sprite"];
+            if (existsSpriteComponent != sol::nullopt) {
+                sol::table sprite = entity["components"]["sprite"];
+                std::string textureId = sprite["textureAssetId"];
+                bool isAnimated = entity["components"]["sprite"]["animated"];
+                if (isAnimated) {
+                    newEntity.AddComponent<SpriteComponent>(
+                        textureId,
+                        static_cast<int>(sprite["frameCount"]),
+                        static_cast<int>(sprite["animationSpeed"]),
+                        static_cast<bool>(sprite["hasDirections"]),
+                        static_cast<bool>(sprite["fixed"])
+                    );
+                } else {
+                    newEntity.AddComponent<SpriteComponent>(textureId.c_str());
+                }
+            }
+
+            sol::optional<sol::table> existsInputComponent = entity["components"]["input"];
+            if (existsInputComponent != sol::nullopt) {
+                sol::optional<sol::table> existsKeyboardComponent = entity["components"]["input"]["keyboard"];
+                if (existsKeyboardComponent != sol::nullopt) {
+                    sol::table keyboard = entity["components"]["input"]["keyboard"];
+                    newEntity.AddComponent<KeyboardControlComponent>(
+                        keyboard["up"],
+                        keyboard["right"],
+                        keyboard["down"],
+                        keyboard["left"],
+                        keyboard["shoot"]
+                    );
+                }
+            }
+
+            sol::optional<sol::table> existsColliderComponent = entity["components"]["collider"];
+            if (existsColliderComponent != sol::nullopt) {
+                std::string colliderTag = entity["components"]["collider"]["tag"];
+                sol::table transform = entity["components"]["transform"];
+                newEntity.AddComponent<ColliderComponent>(
+                    colliderTag,
+                    static_cast<int>(transform["position"]["x"]),
+                    static_cast<int>(transform["position"]["y"]),
+                    static_cast<int>(transform["width"]),
+                    static_cast<int>(transform["height"])
+                );
+            }
+
+            sol::optional<sol::table> existsProjectileEmitterComponent = entity["components"]["projectileEmitter"];
+            if (existsProjectileEmitterComponent != sol::nullopt) {
+                sol::table transform = entity["components"]["transform"];
+                sol::table emitter = entity["components"]["projectileEmitter"];
+
+                int parentEntityXPos = transform["position"]["x"];
+                int parentEntityYPos = transform["position"]["y"];
+                int parentEntityWidth = transform["width"];
+                int parentEntityHeight = transform["height"];
+                int projectileWidth = emitter["width"];
+                int projectileHeight = emitter["height"];
+                int projectileSpeed = emitter["speed"];
+                int projectileRange = emitter["range"];
+                int projectileAngle = emitter["angle"];
+                bool projectileShouldLoop = emitter["shouldLoop"];
+                std::string projectileTextureId = emitter["textureAssetId"];
+
+                Entity& projectile(manager.AddEntity("projectile", PROJECTILE_LAYER));
+                projectile.AddComponent<TransformComponent>(
+                    parentEntityXPos + (parentEntityWidth / 2),
+                    parentEntityYPos + (parentEntityHeight / 2),
+                    0,
+                    0,
+                    projectileWidth,
+                    projectileHeight,
+                    1
+                );
+                projectile.AddComponent<SpriteComponent>(projectileTextureId.c_str());
+                projectile.AddComponent<ProjectileEmitterComponent>(
+                    projectileSpeed,
+                    projectileAngle,
+                    projectileRange,
+                    projectileShouldLoop
+                );
+                projectile.AddComponent<ColliderComponent>(
+                    "PROJECTILE",
+                    parentEntityXPos,
+                    parentEntityYPos,
+                    projectileWidth,
+                    projectileHeight
+                );
+            }
+        }
+        entityIndex++;
+    }
 }
 
 void Game::ProcessInput() {

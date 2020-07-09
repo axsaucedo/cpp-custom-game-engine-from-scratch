@@ -31,8 +31,8 @@ public:
     SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
 
     SpriteComponent(const char* assetTextureId) {
-        isAnimated = false;
-        isFixed = false;
+        this->isAnimated = false;
+        this->isFixed = false;
         this->assetTextureId = std::string(assetTextureId);
         this->texture = Game::assetManager->GetTexture(assetTextureId);
     }
